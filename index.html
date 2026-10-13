@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Clock</h1>
+    <div class="controls">
+      <label class="switch-row"><input type="checkbox" class="switch" id="second-toggle" role="switch"> Second clock</label>
+      <div class="seg" role="group" aria-label="Time format">
+        <button type="button" id="fmt12" aria-pressed="true">12 h</button>
+        <button type="button" id="fmt24" aria-pressed="false">24 h</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="clocks">
+      <section class="clock" id="clock-usa" data-phase="day" aria-label="USA time">
+        <div class="pick"><select id="usa-select" aria-label="USA time zone"></select></div>
+        <div class="dateline"><span class="date"></span><span class="tag" hidden></span></div>
+        <div class="time-wrap">
+          <div class="time"><span class="hm" aria-hidden="true"></span><span class="sec" aria-hidden="true"></span><span class="ampm" aria-hidden="true"></span></div>
+          <span class="sr sr-time"></span>
+        </div>
+        <div>
+          <div class="day"><i></i></div>
+          <div class="ticks" aria-hidden="true"></div>
+        </div>
+        <div class="meta"><span class="phase"></span><span class="off"></span></div>
+      </section>
+
+      <section class="clock" id="clock-other" data-phase="day" aria-label="Second clock" hidden>
+        <div class="pick"><select id="other-select" aria-label="Country for the second clock"></select></div>
+        <div class="dateline"><span class="date"></span><span class="tag" hidden></span></div>
+        <div class="time-wrap">
+          <div class="time"><span class="hm" aria-hidden="true"></span><span class="sec" aria-hidden="true"></span><span class="ampm" aria-hidden="true"></span></div>
+          <span class="sr sr-time"></span>
+        </div>
+        <div>
+          <div class="day"><i></i></div>
+          <div class="ticks" aria-hidden="true"></div>
+        </div>
+        <div class="meta"><span class="phase"></span><span class="off"></span></div>
+        <p class="rel"></p>
+      </section>
+    </div>
+
+    <section class="alerts" aria-labelledby="alerts-title">
+      <h2 id="alerts-title">Alerts</h2>
+      <p class="hint">Alerts ring while this page is open. Each alert uses the time of the clock you choose.</p>
+      <div class="fields">
+        <div class="field"><label for="al-time">Time</label><input type="time" id="al-time"></div>
+        <div class="field"><label for="al-label">Label</label><input type="text" id="al-label" maxlength="60" placeholder="Stand-up call"></div>
+        <div class="field"><label for="al-clock">Clock</label><select id="al-clock"></select></div>
+        <div class="field"><label for="al-repeat">Repeat</label>
+          <select id="al-repeat"><option value="once">Once</option><option value="daily">Every day</option></select>
+        </div>
+      </div>
+      <div class="row-actions">
+        <button type="button" class="btn primary" id="al-add">Add alert</button>
+        <button type="button" class="btn ghost" id="al-test">Play sound</button>
+        <button type="button" class="btn ghost" id="al-notif" hidden>Allow notifications</button>
+        <span class="status" id="status" role="status"></span>
+      </div>
+      <ul class="list" id="al-list"></ul>
+    </section>
+  </main>
+</div>
+
+<div class="ring" id="ring" role="alertdialog" aria-modal="true" aria-labelledby="ring-title" aria-describedby="ring-sub" hidden>
+  <div class="ring-card">
+    <div class="bell" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+    </div>
+    <h2 id="ring-title">Alert</h2>
+    <p id="ring-sub"></p>
+    <p class="more" id="ring-more" hidden></p>
+    <div class="ring-actions">
+      <button type="button" class="btn ghost" id="ring-snooze">Snooze 5 min</button>
+      <button type="button" class="btn primary" id="ring-dismiss">Dismiss</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
